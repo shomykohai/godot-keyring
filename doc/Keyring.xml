@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class name="Keyring" inherits="RefCounted"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
+    <brief_description>
+        Provides access to OS keyring
+    </brief_description>
+    <description>
+        The Keyring singleton, that allows you to interact with the OS keyring. The implementation is based on the platform.
+        [br]
+        [br]
+        On Windows, the credentials are stored in the Windows Vault.[br]
+        On Linux, the Secret Service API (which handles the credentials) is accessed through libsecret.[br]
+        On MacOS, the credentials are managed by the Keychain.[br]
+        [b]Usage example[/b]
+        [codeblock]
+        #some_node.gd
+
+        func store_password(user: String, password: String) -> void:
+            if password.is_empty() or user.is_empty():
+                print("Trying to store non valid credentials.")
+                return
+
+            Keyring.set_password("my_cool_application", "credentials", user, password)
+
+        func login(user: String) -> void:
+            var password := Keyring.get_password("my_cool_application", "credentials", user)
+            if password.is_empty():
+                return
+            
+            # Use password
+            ...
+        [/codeblock]
+    </description>
+    <methods>
+        <method name="delete_password">
+            <return type="int">
+            </return>
+            <description>
+                Deletes a password from the os keyring.
+            </description>
+        </method>
+        <method name="get_password">
+            <return type="String">
+            </return>
+            <description>
+                Retrieves a password from the os keyring.
+            </description>
+            <argument index="0" name="package" type="String">
+                An identifier for your application (e.g my.godot.app).
+            </argument>
+            <argument index="1" name="service" type="String">
+                What this password is intended or associated to (e.g "access_token").
+            </argument>
+            <argument index="2" name="username" type="String">
+                The username or an identifier.
+            </argument>
+        </method>
+        <method name="set_password">
+            <return type="int">
+            </return>
+            <description>
+                Stores a password in the os keyring.
+            </description>
+            <argument index="0" name="package" type="String">
+                An identifier for your application (e.g my.godot.app).
+            </argument>
+            <argument index="1" name="service" type="String">
+                What you want this password to be intended or associated to (e.g "access_token").
+            </argument>
+            <argument index="2" name="username" type="String">
+                The username or an identifier.
+            </argument>
+            <argument index="3" name="password" type="String">
+                The password.
+            </argument>
+        </method>
+    </methods>
+    <constants>
+        <constant name="NO_ERROR" value="0">
+            The operation completed successfully without any errors.
+        </constant>
+        <constant name="GENERIC_ERROR" value="1">
+            Represents a non-specific error that occurred during the operation.
+        </constant>
+        <constant name="NOT_FOUND" value="2">
+            The requested password could not be found in the keyring.
+        </constant>
+        <constant name="PASSWORD_TOO_LONG" value="3">
+            The provided password exceeds the maximum length defined as DWORD_MAX or [(2^32)-1] (Windows only).
+        </constant>
+        <constant name="ACCESS_DENIED" value="4">
+            Access to the keyring was denied (MacOS only).
+        </constant>
+    </constants>
+</class>
