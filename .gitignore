@@ -18,6 +18,9 @@ export_presets.cfg
 data_*/
 mono_crash.*.json
 
+# Documentation gen
+/gen/
+
 ### SCons ###
 # for projects that use SCons for building: http://http://www.scons.org/
 .sconsign.dblite
