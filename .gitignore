@@ -39,5 +39,6 @@ config.log
 *.o
 *.obj
 *.so
+*.os
 *.dylib
 *.dll
