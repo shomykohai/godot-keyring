@@ -9,8 +9,6 @@ namespace godot {
 class Keyring : public RefCounted {
     GDCLASS(Keyring, RefCounted);
 
-    static Keyring* singleton;
-
     protected:
         static void _bind_methods();
 
@@ -26,12 +24,10 @@ class Keyring : public RefCounted {
         ~Keyring();
         Keyring();
 
-        static Keyring* get_singleton();
-
         // Methods
-        String get_password(const String &package, const String &service, const String &user);
-        Keyring::KeyringError set_password(const String &package, const String &service, const String &user, const String &password);
-        Keyring::KeyringError delete_password(const String &package, const String &service, const String &user);
+        static String get_password(const String &package, const String &service, const String &user);
+        static Keyring::KeyringError set_password(const String &package, const String &service, const String &user, const String &password);
+        static Keyring::KeyringError delete_password(const String &package, const String &service, const String &user);
 };
 
 } //namespace godot

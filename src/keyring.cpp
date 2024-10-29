@@ -4,13 +4,12 @@
 
 using namespace godot;
 
-Keyring* Keyring::singleton = nullptr;
 
 void Keyring::_bind_methods() {
     // Methods
-    ClassDB::bind_method(D_METHOD("get_password", "package", "service", "user"), &Keyring::get_password);
-    ClassDB::bind_method(D_METHOD("set_password", "package", "service", "user", "password"), &Keyring::set_password);
-    ClassDB::bind_method(D_METHOD("delete_password", "package", "service", "user"), &Keyring::delete_password);
+    ClassDB::bind_static_method("Keyring", D_METHOD("get_password", "package", "service", "user"), &Keyring::get_password);
+    ClassDB::bind_static_method("Keyring", D_METHOD("set_password", "package", "service", "user", "password"), &Keyring::set_password);
+    ClassDB::bind_static_method("Keyring", D_METHOD("delete_password", "package", "service", "user"), &Keyring::delete_password);
 
     // Enum Constants
     BIND_ENUM_CONSTANT(NO_ERROR);
@@ -21,18 +20,11 @@ void Keyring::_bind_methods() {
 }
 
 
-Keyring* Keyring::get_singleton() {
-    return singleton;
-}
-
 Keyring::Keyring() {
     UtilityFunctions::print_verbose("Godot Keyring initialized");
-    singleton=this;
 }
 
 Keyring::~Keyring() {
-    ERR_FAIL_COND(singleton!=this);
-    singleton = nullptr;
     UtilityFunctions::print_verbose("Godot Keyring destroyed");
 }
 
