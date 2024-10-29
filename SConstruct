@@ -9,6 +9,11 @@ env.Append(CPPPATH=["src/"])
 sources = [Glob("src/*.cpp")]
 
 
+if env["target"] in ["editor", "template_debug"]:
+    doc_data = env.GodotCPPDocData("gen/doc_data.gen.cpp", source=Glob("doc/*.xml"))
+    sources.append(doc_data)
+
+
 if env["platform"] == "linux":
     env.Append(LINKFLAGS=['-static-libstdc++'])
     # Add libsecret headers to the compilation flow
@@ -20,6 +25,6 @@ elif env["platform"] == "windows":
 # elif env["platform"] == "macos":
 #     sources.append(Glob("src/keychain/keychain_mac.cpp"))
 
-libpath = "demo/bin/keyring{}{}".format(env["suffix"], env["SHLIBSUFFIX"])
+libpath = "demo/addons/keyring/bin/keyring{}{}".format(env["suffix"], env["SHLIBSUFFIX"])
 library = env.SharedLibrary(libpath, source=sources)
 Default(library)
