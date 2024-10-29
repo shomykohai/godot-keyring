@@ -1,0 +1,12 @@
+[configuration]
+
+entry_symbol = "godot_keyring_init"
+compatibility_minimum = "4.3"
+reloadable = true
+
+[libraries]
+
+linux.release.x86_64 = "res://bin/libkeyring.linux.template_release.x86_64.so"
+linux.debug.x86_64 = "res://bin/libkeyring.linux.template_debug.x86_64.so"
+windows.release.x86_64 = "res://bin/libkeyring.windows.template_release.x86_64.dll"
+windows.debug.x86_64 = "res://bin/libkeyring.windows.template_debug.x86_64.dll"
