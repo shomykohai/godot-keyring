@@ -32,7 +32,7 @@ jobs:
           path: demo/addons/keyring/bin/
   
   windows-build:
-    runs-on: windows-2019
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         target: [debug, release]
@@ -47,10 +47,10 @@ jobs:
         with:
           python-version: '3.10'
       - name: 🧰 Setup build tools
-        uses: ilammy/msvc-dev-cmd@v1
-      - name: 🧩 Install dependencies
         run: |
-          pip install scons
+          sudo apt-get install mingw-w64 scons
+          sudo update-alternatives --set x86_64-w64-mingw32-gcc /usr/bin/x86_64-w64-mingw32-gcc-posix
+          sudo update-alternatives --set x86_64-w64-mingw32-g++ /usr/bin/x86_64-w64-mingw32-g++-posix
       - name: 🚀 Build Windows (${{ matrix.target }})
         run: |
           scons platform=windows target=template_${{ matrix.target }}
