@@ -25,7 +25,7 @@ jobs:
         run: |
           scons platform=linux target=template_${{ matrix.target }}
       - name: 💾 Upload artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: libkeyring.linux.template_${{ matrix.target }}.x86_64.so
           if-no-files-found: error
@@ -53,7 +53,7 @@ jobs:
         run: |
           scons platform=windows target=template_${{ matrix.target }}
       - name: 💾 Upload artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: libkeyring.windows.template_${{ matrix.target }}.x86_64.dll
           if-no-files-found: error
