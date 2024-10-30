@@ -1,4 +1,5 @@
 <h1 align="center">
+<img src="./keyring.svg" alt="Godot Keyring" width=128><br>
 🔑 Godot Keyring
 </h1>
 
@@ -45,7 +46,10 @@ You can also specify to which platform compile:
 $ scons platform=windows
 ```
 
-## License
+## ✨ Credits
+"Godot Keyring" logo by [@archaeopteryz](https://github.com/archaeopteryz)
+
+## 💼 License
 Licensed under the MIT license, see [LICENSE](LICENSE)
 
-The code in ["src/keychain"](src/keychain/) is licensed under the MIT license, see [keychain/LICENSE](src/keychain/LICENSE) 
+The code in ["src/keychain"](src/keychain/) is licensed under the MIT license, see [keychain/LICENSE](src/keychain/LICENSE)
