@@ -1,0 +1,62 @@
+name: Build the addon
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  linux-build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        target: [debug, release]
+
+    steps:
+      - name: 📦 Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+      - name: 🧩 Install dependencies
+        run: | 
+          sudo apt-get update
+          sudo apt install -y python3 libsecret-1-0 libsecret-1-dev scons
+      - name: 🚀 Build Linux (${{ matrix.target }})
+        run: |
+          scons platform=linux target=template_${{ matrix.target }}
+      - name: 💾 Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: libkeyring.linux.template_${{ matrix.target }}.x86_64.so
+          if-no-files-found: error
+          path: demo/addons/keyring/bin/
+  
+  windows-build:
+    runs-on: windows-latest
+    strategy:
+      matrix:
+        target: [debug, release]
+
+    steps:
+      - name: 📦 Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+      - name: 🐍 Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+      - name: 🧰 Setup build tools
+        uses: ilammy/msvc-dev-cmd@v1
+      - name: 🧩 Install dependencies
+        run: |
+          pip install scons
+      - name: 🚀 Build Windows (${{ matrix.target }})
+        run: |
+          scons platform=windows target=template_${{ matrix.target }}
+      - name: 💾 Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: libkeyring.windows.template_${{ matrix.target }}.x86_64.dll
+          if-no-files-found: error
+          path: demo/addons/keyring/bin/
