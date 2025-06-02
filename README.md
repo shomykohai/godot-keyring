@@ -50,6 +50,6 @@ $ scons platform=windows
 "Godot Keyring" logo by [@archaeopteryz](https://github.com/archaeopteryz)
 
 ## 💼 License
-Licensed under the MIT license, see [LICENSE](LICENSE)
+Licensed under the MIT license, see [LICENSE](LICENSE.md)
 
 The code in ["src/keychain"](src/keychain/) is licensed under the MIT license, see [keychain/LICENSE](src/keychain/LICENSE)
